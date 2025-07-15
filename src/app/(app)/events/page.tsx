@@ -31,6 +31,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Calendar } from '@/components/ui/calendar';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
+import { ClientTimestamp } from '@/components/client-timestamp';
 
 const eventLogs = [
     { id: 'EVT-001', user: 'admin@mgiftcard.com', type: 'ACTIVATION', timestamp: '2024-07-27T10:00:00Z', details: 'Card activated: ****-****-****-1234' },
@@ -121,7 +122,7 @@ export default function EventsPage() {
                       <Badge variant="outline">{log.type}</Badge>
                     </TableCell>
                     <TableCell>
-                      {new Date(log.timestamp).toLocaleString()}
+                      <ClientTimestamp timestamp={log.timestamp} />
                     </TableCell>
                     <TableCell>{log.details}</TableCell>
                   </TableRow>
