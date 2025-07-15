@@ -1,5 +1,7 @@
+
 "use client";
 
+import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import {
@@ -8,7 +10,6 @@ import {
   LineChart,
   LogOut,
   Settings,
-  User,
 } from 'lucide-react';
 import {
   SidebarProvider,
@@ -28,8 +29,24 @@ import { Button } from '@/components/ui/button';
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const [user, setUser] = useState<{ username: string, uuid: string } | null>(null);
+  
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedUser = sessionStorage.getItem('user');
+      if (storedUser) {
+        setUser(JSON.parse(storedUser));
+      }
+    }
+  }, []);
 
   const isActive = (path: string) => pathname === path;
+  
+  const getAvatarFallback = (username: string | undefined) => {
+    if (!username) return 'AD';
+    return username.substring(0, 2).toUpperCase();
+  };
+
 
   return (
     <SidebarProvider>
@@ -74,15 +91,15 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         <SidebarFooter>
           <div className="flex items-center gap-3">
             <Avatar>
-              <AvatarImage src="https://placehold.co/40x40.png" alt="@admin" data-ai-hint="person avatar" />
-              <AvatarFallback>AD</AvatarFallback>
+              <AvatarImage src="https://placehold.co/40x40.png" alt={user?.username || 'admin'} data-ai-hint="person avatar" />
+              <AvatarFallback>{getAvatarFallback(user?.username)}</AvatarFallback>
             </Avatar>
             <div className="flex flex-col">
               <span className="text-sm font-semibold text-sidebar-foreground">
-                Admin User
+                {user?.username || 'Admin User'}
               </span>
               <span className="text-xs text-muted-foreground">
-                admin@mgiftcard.com
+                {user ? `${user.username}` : 'admin@mgiftcard.com'}
               </span>
             </div>
           </div>
@@ -95,7 +112,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         <header className="flex h-14 items-center gap-4 border-b bg-card px-6">
            <SidebarTrigger />
            <div className="flex-1">
-             {/* Can add breadcrumbs or page title here */}
+             <span className="text-sm text-muted-foreground">{user?.uuid}</span>
            </div>
            <div className="flex items-center gap-4">
               <Button variant="ghost" size="icon">
@@ -103,8 +120,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 <span className="sr-only">Settings</span>
               </Button>
               <Avatar>
-                <AvatarImage src="https://placehold.co/40x40.png" alt="@admin" data-ai-hint="person avatar" />
-                <AvatarFallback>AD</AvatarFallback>
+                <AvatarImage src="https://placehold.co/40x40.png" alt={user?.username || 'admin'} data-ai-hint="person avatar" />
+                <AvatarFallback>{getAvatarFallback(user?.username)}</AvatarFallback>
               </Avatar>
            </div>
         </header>

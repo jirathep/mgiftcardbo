@@ -1,3 +1,4 @@
+
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -16,11 +17,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { Mail, Lock } from "lucide-react";
+import { User, Lock } from "lucide-react";
 
 const formSchema = z.object({
-  email: z.string().email({
-    message: "Please enter a valid email address.",
+  username: z.string().min(1, {
+    message: "Please enter your username.",
   }),
   password: z.string().min(6, {
     message: "Password must be at least 6 characters.",
@@ -33,21 +34,54 @@ export function LoginForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: "admin@mgiftcard.com",
+      username: "admin@mgiftcard.com",
       password: "password",
     },
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    try {
+      const response = await fetch("https://dev2.promptnow.com:21172/account", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: values.username,
+          password: values.password,
+        }),
+      });
 
-    toast({
-        title: "Login Successful",
-        description: "Redirecting to your dashboard...",
-    });
-    
-    router.push("/dashboard");
+      const data = await response.json();
+
+      if (data["response-code"] === 0) {
+        if (typeof window !== "undefined") {
+          sessionStorage.setItem("user", JSON.stringify({
+            username: data.username,
+            uuid: data.uuid,
+          }));
+        }
+
+        toast({
+          title: "Login Successful",
+          description: "Redirecting to your dashboard...",
+        });
+        
+        router.push("/dashboard");
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Login Failed",
+          description: data["response-message"] || "Invalid username or password.",
+        });
+      }
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "An error occurred",
+        description: "Could not connect to the authentication service. Please try again later.",
+      });
+    }
   }
 
   return (
@@ -55,14 +89,14 @@ export function LoginForm() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <FormField
           control={form.control}
-          name="email"
+          name="username"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>Username</FormLabel>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <FormControl>
-                  <Input placeholder="name@example.com" {...field} className="pl-10" />
+                  <Input placeholder="your_username" {...field} className="pl-10" />
                 </FormControl>
               </div>
               <FormMessage />
