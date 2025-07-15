@@ -16,6 +16,12 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'pos.promptnow.com',
+        port: '13443',
+        pathname: '/**',
+      }
     ],
   },
 };
