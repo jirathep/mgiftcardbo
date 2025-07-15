@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from 'react';
+import { useEffect } from 'react';
 import {
   Card,
   CardContent,
@@ -27,7 +28,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '@/components/ui/chart';
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from 'recharts';
+import { Bar, BarChart as RechartsBarChart, ResponsiveContainer, XAxis, YAxis } from 'recharts';
 
 const reportData = [
   { name: 'Week 1', total: Math.floor(Math.random() * 5000) + 1000 },
@@ -162,7 +163,7 @@ export default function ReportsPage() {
              <div className="lg:col-span-2">
                 <ChartContainer config={chartConfig} className="h-[300px] w-full">
                   <ResponsiveContainer>
-                    <BarChart data={chartData}>
+                    <RechartsBarChart data={chartData}>
                       <XAxis
                         dataKey="name"
                         stroke="#888888"
@@ -186,7 +187,7 @@ export default function ReportsPage() {
                         fill="var(--color-total)"
                         radius={4}
                       />
-                    </BarChart>
+                    </RechartsBarChart>
                   </ResponsiveContainer>
                 </ChartContainer>
              </div>
