@@ -22,8 +22,8 @@ import {
   ChartLegendContent,
 } from '@/components/ui/chart';
 import { Badge } from '@/components/ui/badge';
-import { LineChart as LineChartIcon, Activity, Gift, Users, DollarSign, CreditCard } from 'lucide-react';
-import { Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, LineChart } from 'recharts';
+import { Activity, Gift, Users, DollarSign, CreditCard } from 'lucide-react';
+import { Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, LineChart as RechartsLineChart } from 'recharts';
 
 const kpiData = [
   {
@@ -148,7 +148,7 @@ export default function DashboardPage() {
           <CardContent>
             <ChartContainer config={chartConfig} className="h-[300px] w-full">
               <ResponsiveContainer>
-                  <LineChart data={usageData}>
+                  <RechartsLineChart data={usageData}>
                     <CartesianGrid vertical={false} strokeDasharray="3 3" />
                     <XAxis dataKey="month" tickLine={false} axisLine={false} />
                     <YAxis tickLine={false} axisLine={false} />
@@ -156,7 +156,7 @@ export default function DashboardPage() {
                     <ChartLegend content={<ChartLegendContent />} />
                     <Line dataKey="activations" type="monotone" stroke="var(--color-activations)" strokeWidth={2} dot={false} />
                     <Line dataKey="redemptions" type="monotone" stroke="var(--color-redemptions)" strokeWidth={2} dot={false} />
-                  </LineChart>
+                  </RechartsLineChart>
               </ResponsiveContainer>
             </ChartContainer>
           </CardContent>
