@@ -54,7 +54,7 @@ export function LoginForm() {
 
       const data = await response.json();
 
-      if (data["response-code"] === 0) {
+      if (data["response-code"] == 0) {
         if (typeof window !== "undefined") {
           sessionStorage.setItem("user", JSON.stringify({
             username: data.username,
