@@ -40,37 +40,34 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         <SidebarContent>
           <SidebarMenu>
             <SidebarMenuItem>
-              <Link href="/dashboard" legacyBehavior passHref>
-                <SidebarMenuButton
-                  isActive={isActive('/dashboard')}
-                  icon={<LayoutDashboard />}
-                  tooltip="Dashboard"
-                >
-                  Dashboard
-                </SidebarMenuButton>
-              </Link>
+              <SidebarMenuButton
+                asChild
+                isActive={isActive('/dashboard')}
+                icon={<LayoutDashboard />}
+                tooltip="Dashboard"
+              >
+                <Link href="/dashboard">Dashboard</Link>
+              </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-               <Link href="/events" legacyBehavior passHref>
-                <SidebarMenuButton
-                  isActive={isActive('/events')}
-                  icon={<ListCollapse />}
-                  tooltip="Events"
-                >
-                  Event Logging
-                </SidebarMenuButton>
-              </Link>
+              <SidebarMenuButton
+                asChild
+                isActive={isActive('/events')}
+                icon={<ListCollapse />}
+                tooltip="Events"
+              >
+                <Link href="/events">Event Logging</Link>
+              </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <Link href="/reports" legacyBehavior passHref>
-                <SidebarMenuButton
-                  isActive={isActive('/reports')}
-                  icon={<LineChart />}
-                  tooltip="Reports"
-                >
-                  Automated Reports
-                </SidebarMenuButton>
-              </Link>
+              <SidebarMenuButton
+                asChild
+                isActive={isActive('/reports')}
+                icon={<LineChart />}
+                tooltip="Reports"
+              >
+                <Link href="/reports">Automated Reports</Link>
+              </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>
         </SidebarContent>
@@ -89,11 +86,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               </span>
             </div>
           </div>
-          <Link href="/" legacyBehavior passHref>
-            <SidebarMenuButton icon={<LogOut />} tooltip="Log Out">
-              Log Out
-            </SidebarMenuButton>
-          </Link>
+          <SidebarMenuButton asChild icon={<LogOut />} tooltip="Log Out">
+            <Link href="/">Log Out</Link>
+          </SidebarMenuButton>
         </SidebarFooter>
       </Sidebar>
       <SidebarInset>
