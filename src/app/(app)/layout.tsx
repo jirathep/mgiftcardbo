@@ -91,7 +91,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         <SidebarFooter>
           <div className="flex items-center gap-3">
             <Avatar>
-              <AvatarImage src="https://placehold.co/40x40.png" alt={user?.username || 'admin'} data-ai-hint="person avatar" />
+              <AvatarImage src="https://images.unsplash.com/photo-1750535135696-4421c9a90746?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8dXNlciUyMGNhcnRvb258ZW58MHx8fHwxNzUyNTUzNjM0fDA&ixlib=rb-4.1.0&q=80&w=1080" alt={user?.username || 'admin'} data-ai-hint="person avatar" />
               <AvatarFallback>{getAvatarFallback(user?.username)}</AvatarFallback>
             </Avatar>
             <div className="flex flex-col">
@@ -120,7 +120,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 <span className="sr-only">Settings</span>
               </Button>
               <Avatar>
-                <AvatarImage src="https://placehold.co/40x40.png" alt={user?.username || 'admin'} data-ai-hint="person avatar" />
+                <AvatarImage src="https://images.unsplash.com/photo-1750535135696-4421c9a90746?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8dXNlciUyMGNhcnRvb258ZW58MHx8fHwxNzUyNTUzNjM0fDA&ixlib=rb-4.1.0&q=80&w=1080" alt={user?.username || 'admin'} data-ai-hint="person avatar" />
                 <AvatarFallback>{getAvatarFallback(user?.username)}</AvatarFallback>
               </Avatar>
            </div>

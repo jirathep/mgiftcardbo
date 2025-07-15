@@ -23,6 +23,12 @@ const nextConfig: NextConfig = {
         hostname: 'pos.promptnow.com',
         port: '13443',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        port: '',
+        pathname: '/**',
       }
     ],
   },
