@@ -22,8 +22,8 @@ import {
   ChartLegendContent,
 } from '@/components/ui/chart';
 import { Badge } from '@/components/ui/badge';
-import { LineChart, Activity, Gift, Users, DollarSign, CreditCard } from 'lucide-react';
-import { Bar, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
+import { LineChart as LineChartIcon, Activity, Gift, Users, DollarSign, CreditCard } from 'lucide-react';
+import { Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, LineChart } from 'recharts';
 
 const kpiData = [
   {

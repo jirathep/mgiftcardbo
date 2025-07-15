@@ -26,8 +26,6 @@ import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-  ChartLegend,
-  ChartLegendContent,
 } from '@/components/ui/chart';
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from 'recharts';
 
@@ -52,12 +50,31 @@ export default function ReportsPage() {
     to: addDays(new Date(), 7),
   });
   const [showReport, setShowReport] = React.useState(false);
+  const [chartData, setChartData] = React.useState(reportData);
 
   const handleGenerateReport = () => {
     if (reportType && date) {
+      // Regenerate data when a new report is generated
+      setChartData(
+        reportData.map((d) => ({
+          ...d,
+          total: Math.floor(Math.random() * 5000) + 1000,
+        }))
+      );
       setShowReport(true);
     }
   };
+  
+  // Avoid hydration mismatch by moving random data generation to useEffect
+  useEffect(() => {
+    setChartData(
+      reportData.map((d) => ({
+        ...d,
+        total: Math.floor(Math.random() * 5000) + 1000,
+      }))
+    );
+  }, []);
+
 
   return (
     <div className="flex flex-col gap-6">
@@ -145,7 +162,7 @@ export default function ReportsPage() {
              <div className="lg:col-span-2">
                 <ChartContainer config={chartConfig} className="h-[300px] w-full">
                   <ResponsiveContainer>
-                    <BarChart data={reportData}>
+                    <BarChart data={chartData}>
                       <XAxis
                         dataKey="name"
                         stroke="#888888"
