@@ -24,6 +24,7 @@ import {
 } from '@/components/ui/sidebar';
 import { Logo } from '@/components/logo';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
